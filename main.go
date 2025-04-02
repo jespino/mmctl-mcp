@@ -180,6 +180,36 @@ func main() {
 		os.Exit(1)
 	}
 
+	if err := RegisterGroupTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register group tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterBotTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register bot tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterAuthTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register auth tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterOAuthTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register OAuth tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterLDAPTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register LDAP tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterSAMLTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register SAML tools: %v\n", err)
+		os.Exit(1)
+	}
+
 	// Start the server
 	err = server.Serve()
 	if err != nil {
