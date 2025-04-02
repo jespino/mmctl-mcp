@@ -160,6 +160,26 @@ func main() {
 		os.Exit(1)
 	}
 
+	if err := RegisterWebhookTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register webhook tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterRoleTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register role tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterJobTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register job tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterPermissionTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register permission tools: %v\n", err)
+		os.Exit(1)
+	}
+
 	// Start the server
 	err = server.Serve()
 	if err != nil {

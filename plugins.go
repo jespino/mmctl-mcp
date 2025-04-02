@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	mcp_golang "github.com/metoro-io/mcp-golang"
 )
