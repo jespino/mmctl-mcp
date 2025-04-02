@@ -2,15 +2,17 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
 
 	mcp_golang "github.com/metoro-io/mcp-golang"
 )
 
 // PostCreateArgs represents arguments for post create command
 type PostCreateArgs struct {
-	Channel string `json:"channel" jsonschema:"required,description=Channel to post to (in team:channel format for named channels)"`
-	Message string `json:"message" jsonschema:"required,description=Message text to post"`
-	ReplyTo string `json:"replyTo" jsonschema:"description=Post ID to reply to"`
+	Channel  string `json:"channel" jsonschema:"required,description=Channel to post to (in team:channel format for named channels)"`
+	Message  string `json:"message" jsonschema:"required,description=Message text to post"`
+	ReplyTo  string `json:"replyTo" jsonschema:"description=Post ID to reply to"`
+	AsUserID string `json:"asUserId" jsonschema:"description=User ID to post as (impersonation)"`
 }
 
 // PostListArgs represents arguments for post list command
