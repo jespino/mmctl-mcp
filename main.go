@@ -210,6 +210,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	if err := RegisterLicenseTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register License tools: %v\n", err)
+		os.Exit(1)
+	}
+
 	// Start the server
 	err = server.Serve()
 	if err != nil {
