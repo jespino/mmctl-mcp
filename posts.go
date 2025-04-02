@@ -42,10 +42,26 @@ func RegisterPostTools(server *mcp_golang.Server) error {
 		// Add the channel as the last argument
 		cmdArgs = append(cmdArgs, args.Channel)
 
-		output, err := executeMMCTL(cmdArgs...)
-		if err != nil {
-			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		var output string
+		var err error
+		if args.AsUserID != "" {
+			// For impersonation, we handle the special case directly
+			// Create the command with the --local and --local-user-id flags
+			localArgs := append([]string{"--local", "--local-user-id", args.AsUserID}, cmdArgs...)
+			cmd := exec.Command("mmctl", localArgs...)
+			outputBytes, cmdErr := cmd.CombinedOutput()
+			if cmdErr != nil {
+				return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v\nOutput: %s", cmdErr, string(outputBytes)))), nil
+			}
+			output = string(outputBytes)
+		} else {
+			// Use standard executeMMCTL for normal post creation
+			output, err = executeMMCTL(cmdArgs...)
+			if err != nil {
+				return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+			}
 		}
+
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
