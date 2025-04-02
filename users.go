@@ -42,6 +42,18 @@ type UserEmailArgs struct {
 	NewEmail string `json:"newEmail" jsonschema:"required,description=New email address"`
 }
 
+// UserAddTeamArgs represents arguments for adding users to a team
+type UserAddTeamArgs struct {
+	Team  string   `json:"team" jsonschema:"required,description=Team name or ID"`
+	Users []string `json:"users" jsonschema:"required,description=Users to add (usernames, emails, or IDs)"`
+}
+
+// UserAddChannelArgs represents arguments for adding users to a channel
+type UserAddChannelArgs struct {
+	Channel string   `json:"channel" jsonschema:"required,description=Channel name or ID (in team:channel format for named channels)"`
+	Users   []string `json:"users" jsonschema:"required,description=Users to add (usernames, emails, or IDs)"`
+}
+
 // RegisterUserTools registers all user related tools
 func RegisterUserTools(server *mcp_golang.Server) error {
 	// Register user search tool
@@ -151,6 +163,36 @@ func RegisterUserTools(server *mcp_golang.Server) error {
 	})
 	if err != nil {
 		return fmt.Errorf("failed to register user_email tool: %v", err)
+	}
+
+	// Register user add team tool
+	err = server.RegisterTool("user_add_team", "Add users to a team", func(args UserAddTeamArgs) (*mcp_golang.ToolResponse, error) {
+		cmdArgs := []string{"user", "add", args.Team}
+		cmdArgs = append(cmdArgs, args.Users...)
+		
+		output, err := executeMMCTL(cmdArgs...)
+		if err != nil {
+			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
+	})
+	if err != nil {
+		return fmt.Errorf("failed to register user_add_team tool: %v", err)
+	}
+
+	// Register user add channel tool
+	err = server.RegisterTool("user_add_channel", "Add users to a channel", func(args UserAddChannelArgs) (*mcp_golang.ToolResponse, error) {
+		cmdArgs := []string{"channel", "add", args.Channel}
+		cmdArgs = append(cmdArgs, args.Users...)
+		
+		output, err := executeMMCTL(cmdArgs...)
+		if err != nil {
+			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
+	})
+	if err != nil {
+		return fmt.Errorf("failed to register user_add_channel tool: %v", err)
 	}
 
 	return nil
