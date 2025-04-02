@@ -92,6 +92,7 @@ The plugin provides tools in the following categories:
 | LDAP | LDAP integration | ldap_sync, ldap_idmigrate |
 | SAML | SAML configuration | saml_auth_data_reset |
 | OAuth | OAuth applications | oauth_list |
+| License | License management | license_remove, license_upload, license_upload_string |
 | Claude | Claude API integration | claude_prompt, claude_file_analysis |
 
 ## Examples
@@ -124,6 +125,16 @@ Claude: Uses plugin_list tool to show enabled plugins
 
 User: "Disable the jira plugin"
 Claude: Uses plugin_disable tool to disable the specified plugin
+```
+
+### License Management
+
+```
+User: "Upload a new license file for our Mattermost server"
+Claude: Uses license_upload tool to upload the license file
+
+User: "Remove the current license and revert to Team Edition"
+Claude: Uses license_remove tool to remove the current license
 ```
 
 ## Development & Debugging
