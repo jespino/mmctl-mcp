@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	mcp_golang "github.com/metoro-io/mcp-golang"
 )
@@ -28,7 +27,7 @@ func RegisterConfigTools(server *mcp_golang.Server) error {
 	// Register config get tool
 	err := server.RegisterTool("config_get", "Get a configuration setting", func(args ConfigGetArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"config", "get", args.Path}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -43,7 +42,7 @@ func RegisterConfigTools(server *mcp_golang.Server) error {
 	err = server.RegisterTool("config_set", "Set a configuration setting", func(args ConfigSetArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"config", "set", args.Path}
 		cmdArgs = append(cmdArgs, args.Values...)
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -57,7 +56,7 @@ func RegisterConfigTools(server *mcp_golang.Server) error {
 	// Register config show tool
 	err = server.RegisterTool("config_show", "Show the server configuration", func(args ConfigShowArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"config", "show"}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	mcp_golang "github.com/metoro-io/mcp-golang"
 )
@@ -43,11 +42,11 @@ func RegisterChannelTools(server *mcp_golang.Server) error {
 	// Register channel list tool
 	err := server.RegisterTool("channel_list", "List channels in a team", func(args ChannelListArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"channel", "list"}
-		
+
 		if args.Team != "" {
 			cmdArgs = append(cmdArgs, args.Team)
 		}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -61,19 +60,19 @@ func RegisterChannelTools(server *mcp_golang.Server) error {
 	// Register channel create tool
 	err = server.RegisterTool("channel_create", "Create a new channel", func(args ChannelCreateArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"channel", "create", "--team", args.Team, "--name", args.Name, "--display-name", args.DisplayName}
-		
+
 		if args.Header != "" {
 			cmdArgs = append(cmdArgs, "--header", args.Header)
 		}
-		
+
 		if args.Purpose != "" {
 			cmdArgs = append(cmdArgs, "--purpose", args.Purpose)
 		}
-		
+
 		if args.Private {
 			cmdArgs = append(cmdArgs, "--private")
 		}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -87,13 +86,13 @@ func RegisterChannelTools(server *mcp_golang.Server) error {
 	// Register channel search tool
 	err = server.RegisterTool("channel_search", "Search for a channel", func(args ChannelSearchArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"channel", "search"}
-		
+
 		if args.Team != "" {
 			cmdArgs = append(cmdArgs, "--team", args.Team)
 		}
-		
+
 		cmdArgs = append(cmdArgs, args.Channel)
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -107,7 +106,7 @@ func RegisterChannelTools(server *mcp_golang.Server) error {
 	// Register channel archive tool
 	err = server.RegisterTool("channel_archive", "Archive a channel", func(args ChannelArchiveArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"channel", "archive", args.Channel}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -121,7 +120,7 @@ func RegisterChannelTools(server *mcp_golang.Server) error {
 	// Register channel unarchive tool
 	err = server.RegisterTool("channel_unarchive", "Unarchive a channel", func(args ChannelUnarchiveArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"channel", "unarchive", args.Channel}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	mcp_golang "github.com/metoro-io/mcp-golang"
 )
@@ -36,7 +35,7 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 	// Register plugin list tool
 	err := server.RegisterTool("plugin_list", "List installed plugins", func(args PluginListArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"plugin", "list"}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -51,7 +50,7 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 	err = server.RegisterTool("plugin_enable", "Enable plugins", func(args PluginEnableArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"plugin", "enable"}
 		cmdArgs = append(cmdArgs, args.Plugins...)
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -66,7 +65,7 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 	err = server.RegisterTool("plugin_disable", "Disable plugins", func(args PluginDisableArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"plugin", "disable"}
 		cmdArgs = append(cmdArgs, args.Plugins...)
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
@@ -80,27 +79,27 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 	// Register plugin marketplace list tool
 	err = server.RegisterTool("plugin_marketplace_list", "List marketplace plugins", func(args PluginMarketplaceListArgs) (*mcp_golang.ToolResponse, error) {
 		cmdArgs := []string{"plugin", "marketplace", "list"}
-		
+
 		if args.Filter != "" {
 			cmdArgs = append(cmdArgs, "--filter", args.Filter)
 		}
-		
+
 		if args.Page > 0 {
 			cmdArgs = append(cmdArgs, "--page", fmt.Sprintf("%d", args.Page))
 		}
-		
+
 		if args.PerPage > 0 {
 			cmdArgs = append(cmdArgs, "--per-page", fmt.Sprintf("%d", args.PerPage))
 		}
-		
+
 		if args.LocalOnly {
 			cmdArgs = append(cmdArgs, "--local-only")
 		}
-		
+
 		if args.All {
 			cmdArgs = append(cmdArgs, "--all")
 		}
-		
+
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
