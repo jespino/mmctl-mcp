@@ -129,6 +129,37 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Register the new tool categories
+	if err := RegisterChannelTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register channel tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterUserTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register user tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterPostTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register post tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterPluginTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register plugin tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterTeamTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register team tools: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := RegisterConfigTools(server); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to register config tools: %v\n", err)
+		os.Exit(1)
+	}
+
 	// Start the server
 	err = server.Serve()
 	if err != nil {
