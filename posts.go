@@ -61,6 +61,9 @@ func RegisterPostTools(server *mcp_golang.Server) error {
 				return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 			}
 		}
+		if output == "" {
+			output = "Post created successfully"
+		}
 
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
