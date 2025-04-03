@@ -58,6 +58,9 @@ func RegisterJobTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Jobs listed successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -75,6 +78,9 @@ func RegisterJobTools(server *mcp_golang.Server) error {
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		if output == "" {
+			output = "Job updated successfully"
 		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})

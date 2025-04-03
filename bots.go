@@ -54,6 +54,9 @@ func RegisterBotTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Bots listed successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -80,6 +83,9 @@ func RegisterBotTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Bot created successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -93,6 +99,9 @@ func RegisterBotTools(server *mcp_golang.Server) error {
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		if output == "" {
+			output = "Bot assigned to new owner successfully"
 		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
@@ -108,6 +117,9 @@ func RegisterBotTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Bot disabled successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -121,6 +133,9 @@ func RegisterBotTools(server *mcp_golang.Server) error {
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		if output == "" {
+			output = "Bot enabled successfully"
 		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})

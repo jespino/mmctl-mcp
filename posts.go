@@ -91,6 +91,9 @@ func RegisterPostTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Posts listed successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -110,6 +113,9 @@ func RegisterPostTools(server *mcp_golang.Server) error {
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		if output == "" {
+			output = "Posts deleted successfully"
 		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})

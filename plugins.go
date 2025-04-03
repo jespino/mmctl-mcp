@@ -40,6 +40,9 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Plugins listed successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -55,6 +58,9 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Plugins enabled successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -69,6 +75,9 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		if output == "" {
+			output = "Plugins disabled successfully"
 		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
@@ -103,6 +112,9 @@ func RegisterPluginTools(server *mcp_golang.Server) error {
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		if output == "" {
+			output = "Marketplace plugins listed successfully"
 		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})

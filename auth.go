@@ -31,6 +31,9 @@ func RegisterAuthTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Auth credentials listed successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -45,6 +48,9 @@ func RegisterAuthTools(server *mcp_golang.Server) error {
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
 		}
+		if output == "" {
+			output = "Auth credentials set successfully"
+		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
 	if err != nil {
@@ -58,6 +64,9 @@ func RegisterAuthTools(server *mcp_golang.Server) error {
 		output, err := executeMMCTL(cmdArgs...)
 		if err != nil {
 			return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(fmt.Sprintf("Error: %v", err))), nil
+		}
+		if output == "" {
+			output = "Current auth credentials retrieved successfully"
 		}
 		return mcp_golang.NewToolResponse(mcp_golang.NewTextContent(output)), nil
 	})
